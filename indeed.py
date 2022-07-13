@@ -26,14 +26,14 @@ def extract_job(html):
     return {'title' : job_title,
              'company' : com_name,
              'location' : com_loc,
-             'link' : f"https://kr.indeed.com/viewjob?jk={job_id}"
+             'apply_link' : f"https://kr.indeed.com/viewjob?jk={job_id}"
             }
     
 
 def extract_jobs(last_pages):
     jobs = []
     for page in range(last_pages):
-        print(f"Scrapping page {page}")
+        print(f"Scrapping Indeed: page {page}")
         result = requests.get(f"{URL}&start={page*LIMIT}")
         soup = BeautifulSoup(result.text, "html.parser");
         job_contents = soup.find_all("td",{"class" : "resultContent"})

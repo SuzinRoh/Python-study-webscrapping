@@ -22,19 +22,20 @@ def extract_job(html):
     return {'title' : job_title,
              'company' : com_name,
              'location' : com_loc,
-             'link' : f"https://job.incruit.com/jobdb_info/jobpost.asp?job={job_id}&src=etc*search"
+             'apply_link' : f"https://job.incruit.com/jobdb_info/jobpost.asp?job={job_id}"
             }
 
-def extract_jobs(last_page):
+def extract_jobs(last_pages):
     jobs = []
-    for page in range(last_page):
-        result = requests.get(f"{URL}&startno={page}")
+    for page in range(last_pages)[:5]:
+        print(f"Scrapping Incruit: page: {page}")
+        result = requests.get(f"{URL}&startno={page*LIMIT}")
         soup = BeautifulSoup(result.text, "html.parser")
         results = soup.find_all("li", {"class" : "c_col"})
         for result in results:
             job = extract_job(result)
             jobs.append(job)
-        return jobs
+    return jobs
           
 
 def get_jobs():
