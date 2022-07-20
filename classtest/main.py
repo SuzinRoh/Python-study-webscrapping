@@ -9,13 +9,23 @@ class Car():
     
     def __str__(self):
        return f"Car with {self.wheels} wheels"
-       
+ 
+class  Convertible(Car):
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.time = kwargs.get("time", 10)
+    
+    def take_off(self):
+        return "taking off"   
+    
+    def __str__(self):
+        return f"Car with no roofs"   
         
-        
-porche = Car(color="green", price="$40")
-print(porche.color, porche.price)
-# print(dir(Car))
 
+    
 
+porche = Convertible(color="green", price="$40")
 mini = Car()
-print(mini.color, mini.price)
+porche.color = "red"
+print(porche.color)
